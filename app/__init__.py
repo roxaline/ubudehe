@@ -1,6 +1,6 @@
 from flask import Flask
-
-# Initializing application
-app = Flask(__name__)
-
-from app import views
+from flask_bootstrap import Bootstrap
+from flask_sqlalchemy import SQLAlchemy
+from flask_uploads import UploadSet,configure_uploads,IMAGES
+from flask_mail import Mail
+from flask_simplemde import SimpleMDE
