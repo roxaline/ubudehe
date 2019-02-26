@@ -44,7 +44,8 @@ class Pitch(db.Model):
     name = db.Column(db.String(625))
     comment_id = db.Column(db.Integer,db.ForeignKey('comments.id'))
     vote_id = db.Column(db.Integer,db.ForeignKey('votes.id'))
-    users = db.relationship('User',backref = 'pitch',lazy="dynamic")
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    # users = db.relationship('User',backref = 'pitch',lazy="dynamic")
 
 
     def __repr__(self):
@@ -55,19 +56,22 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(625))
-    users = db.relationship('User',backref = 'comment',lazy="dynamic")
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    # users = db.relationship('User',backref = 'comment',lazy="dynamic")
 
 
     def __repr__(self):
         return f'User {self.name}'
 
 class Vote(db.Model):
-    __tablename__ = 'comments'
+    __tablename__ = 'votes'
 
     id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String(625))
-    users = db.relationship('User',backref = 'comment',lazy="dynamic")
+    upvote = db.Column(db.String(255))
+    downvote = db.Column(db.String(255))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    # users = db.relationship('User',backref = 'comment',lazy="dynamic")
 
 
     def __repr__(self):
-        return f'User {self.name}'
+        return f'User {self.upvote}'

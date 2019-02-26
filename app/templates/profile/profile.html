@@ -18,7 +18,10 @@
   <!--Display profile photo-->
   <div class="col-md-4">
     {% if user == current_user %}
-    <a href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
+    <a href="{{url_for('main.update_bio',uname=user.username)}}">Edit Bio</a>
+    <a href="{{url_for('main.update_pitch',uname=user.username)}}">Create a Pitch</a>
+    <a href="{{url_for('main.update_comment',uname=user.username)}}">Add a comment</a>
+    <a href="{{url_for('main.update_vote',uname=user.username)}}">Vote</a>
     {% endif %}
 
     {% if user.profile_pic_path %}

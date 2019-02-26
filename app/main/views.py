@@ -23,9 +23,9 @@ def profile(uname):
 
     return render_template("profile/profile.html", user = user)
 
-@main.route('/user/<uname>/update',methods = ['GET','POST'])
+@main.route('/user/<uname>/update/bio',methods = ['GET','POST'])
 @login_required
-def update_profile(uname):
+def update_bio(uname):
     user = User.query.filter_by(username = uname).first()
     if user is None:
         abort(404)
@@ -40,7 +40,64 @@ def update_profile(uname):
 
         return redirect(url_for('.profile',uname=user.username))
 
-    return render_template('profile/update.html',form =form)
+    return render_template('profile/update_bio.html',form =form)
+
+@main.route('/user/<uname>/update/pitch',methods = ['GET','POST'])
+@login_required
+def update_pitch(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('profile/update_pitch.html',form =form)
+
+@main.route('/user/<uname>/update/comment',methods = ['GET','POST'])
+@login_required
+def update_comment(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('profile/update_comment.html',form =form)
+
+@main.route('/user/<uname>/update/vote',methods = ['GET','POST'])
+@login_required
+def update_vote(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('profile/update_vote.html',form =form)
 
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
 @login_required
@@ -52,4 +109,3 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
-    

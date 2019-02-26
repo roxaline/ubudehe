@@ -1,9 +1,12 @@
 import os
 
+
 class Config:
     '''
     General configuration parent class
     '''
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:123456@localhost/news'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 
@@ -28,7 +31,7 @@ class ProdConfig(Config):
     pass
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:123456@localhost/news_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:123456@localhost/news'
 
 
 class DevConfig(Config):
@@ -38,6 +41,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
+    SECRET_KEY = 'secretkey'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:123456@localhost/news'
     DEBUG = True
 
