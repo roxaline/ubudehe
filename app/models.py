@@ -53,13 +53,13 @@ class Pitch(db.Model):
 
     # users = db.relationship('User',backref = 'pitch',lazy="dynamic")
 
-    def save_pitch(self):
-        db.session.add(self)
-        db.session.commit()
+    # def save_pitch(self):
+    #     db.session.add(self)
+    #     db.session.commit()
 
     @classmethod
     def get_pitches(cls,id):
-        pitches = Pitch.query.filter_by(pitch_id=id).all()
+        pitches = Pitch.query.filter_by(user_id=id).all()
         return pitches
 
 
@@ -75,13 +75,13 @@ class Comment(db.Model):
     pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
     # users = db.relationship('User',backref = 'comment',lazy="dynamic")
 
-    def save_comment(self):
-        db.session.add(self)
-        db.session.commit()
+    # def save_comment(self):
+    #     db.session.add(self)
+    #     db.session.commit()
 
     @classmethod
     def get_comments(cls,id):
-        comments = Comment.query.filter_by(comment_id=id).all()
+        comments = Comment.query.filter_by(pitch_id=id).all()
         return comments
 
     def __repr__(self):
@@ -97,13 +97,13 @@ class Vote(db.Model):
     pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
     # users = db.relationship('User',backref = 'comment',lazy="dynamic")
 
-    def save_vote(self):
-        db.session.add(self)
-        db.session.commit()
+    # def save_vote(self):
+    #     db.session.add(self)
+    #     db.session.commit()
 
     @classmethod
     def get_votes(cls,id):
-        votes = Vote.query.filter_by(vote_id=id).all()
+        votes = Vote.query.filter_by(pitch_id=id).all()
         return votes
 
 

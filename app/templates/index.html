@@ -11,23 +11,28 @@
 <!-- Content block -->
 {% block content %}
 
-<div class="container">
-  <div class="row" id='pitch'>
+<div class="container" style="text-align:center;">
+  <h1 style="text-align:center;margin-bottom:80px;">Pitches</h1>
+  <div class="row" id='pitch' style="display:grid;grid-template-columns: 30% 30% 30%;
+    grid-auto-rows: 25.6em;
+    grid-gap: 60px;">
 
     {%for pitch in pitches%}
-        {% if current_user.is_authenticated %}
-        <li><h4>Pitch {{pitch.id}}</h4>
+      {% if current_user.is_authenticated %}
+        <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
           <p>{{pitch.name}}</p>
           <p>By User {{pitch.user_id}}</p>
           <p><a href="{{url_for('main.new_comment',id=current_user.id)}}">Comment</a></p>
           <p><a href="{{url_for('main.new_vote',id=current_user.id)}}">Vote</a></p>
-        {% else %}
-          <li><h4><a href="{{url_for('auth.login')}}">Pitch {{pitch.id}}</a></h4>
+        </li>
+      {% else %}
+        <li class="well"style="height:300px;"><h4><a href="{{url_for('auth.login')}}">Pitch {{pitch.id}}</a></h4>
           <p>{{pitch.name}}</p>
           <p>By User {{pitch.user_id}}</p>
-        {%endif%}
+        </li>
+      {%endif%}
 
-      </li>
+
     {%endfor%}
 
   </div>
