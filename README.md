@@ -16,7 +16,7 @@ OR
 * Go to https://github.com
 * Search for Juru-10
 * Go to Juru-10 repositories
-* Get the repository called pitches
+* Get the repository called *pitches*
 OR
 * Go to https://github.com/Juru-10/pitches.git
 OR
@@ -27,14 +27,14 @@ OR
 
 * $ heroku login
 * Clone the repository
-* Use Git to clone 's source code to your local machine.
+* Use Git to clone pitches10's source code to your local machine.
 
-* $ heroku git:clone -a
-* $ cd
+* $ heroku git:clone -a pitches10
+* $ cd pitches10
 
 ## link to it on Heroku
 
-https://.herokuapp.com/
+https://pitches10.herokuapp.com/
 
 ## Known Bugs
 

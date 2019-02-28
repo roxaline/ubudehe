@@ -5,24 +5,26 @@
 <div class="row">
 <!-- displaying  Username-->
   <div class="col-md-4">
-    <h3> {{user.username| capitalize}} </h3>
-
+    <h2> {{user.username| capitalize}} </h2>
     <!--Displaying user bio-->
     {% if user.bio %}
+      <h4>BIO</h4>
       <p> {{user.bio}}</p>
     {%else%}
       <p> {{user.username| capitalize}} has no bio </p>
     {% endif %}
-  </div>
 
+    {% if user == current_user %}
+    <p><a href="{{url_for('main.update_bio',uname=user.username)}}">Edit Bio</a></p>
+    {% endif %}
+
+    {% if user == current_user %}
+    <h4><a href="{{url_for('main.new_pitch',id = current_user.id)}}">Create Pitch</a></h4>
+    {% endif %}
+
+  </div>
   <!--Display profile photo-->
   <div class="col-md-4">
-    {% if user == current_user %}
-    <a href="{{url_for('main.update_bio',uname=user.username)}}">Edit Bio</a>
-    <a href="{{url_for('main.update_pitch',uname=user.username)}}">Create a Pitch</a>
-    <a href="{{url_for('main.update_comment',uname=user.username)}}">Add a comment</a>
-    <a href="{{url_for('main.update_vote',uname=user.username)}}">Vote</a>
-    {% endif %}
 
     {% if user.profile_pic_path %}
     <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
