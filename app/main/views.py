@@ -106,13 +106,15 @@ def new_vote():
         pitch = Pitch(name = form.name.data, user_id = current_user.id)
         upvote = Vote(upvote = form.validate_on_submit(),pitch_id = pitch.id)
         downvote = Vote(downvote = form.validate_on_submit(),pitch_id = pitch.id)
+        up=0
+        down=0
         for upvote in vote:
-            count+=1
-            db.session.add(upvote=count)
+            up+=1
+            db.session.add(upvote=up)
             db.session.commit()
         for downvote in vote:
-            count+=1
-            db.session.add(downvote=count)
+            down+=1
+            db.session.add(downvote=down)
             db.session.commit()
         user=User.query.filter_by(id = pitch.id).first()
         return redirect(url_for('.index'))
