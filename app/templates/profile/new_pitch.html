@@ -4,11 +4,21 @@
 {% block content %}
     <div class="container">
 
-        <div class="pitch_form">
-           {{ wtf.quick_form(pitch_form) }}
-           {{simplemde.load}}
-       </div>
-
+      <div class="pitch_form">
+        <h1>Rough Cut Projects</h1>
+        {{ wtf.quick_form(pitch_form) }}
+        {{simplemde.load}}
+      </div>
+      <div class="Cpitch_form">
+        <h1>Central pitches</h1>
+        {{ wtf.quick_form(Cpitch_form) }}
+        {{simplemde.load}}
+      </div>
+      <div class="Rpitch_form">
+        <h1>Round Table pitches</h1>
+        {{ wtf.quick_form(Rpitch_form) }}
+        {{simplemde.load}}
+      </div>
     </div>
 
     <!-- <div class="container-fluid">

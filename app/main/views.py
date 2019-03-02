@@ -1,24 +1,54 @@
+from flask import Flask
 from flask import render_template,request,redirect,url_for,abort
 from ..models import User,Pitch,Comment
 from . import main
-from .forms import PitchForm,CommentForm,VoteForm,UpdateProfile
+from .forms import PitchForm,CommentForm,VoteForm,UpdateProfile,CPitchForm,RPitchForm
 from .. import db,photos
 from flask_login import login_required,current_user
 import markdown2
+# from flask import Flask
+# app = Flask(__name__)
+# app.debug = True
+#
 
 @main.route('/',methods = ['GET','POST'])
 def index():
     '''
     View root page function that returns the index page and its data
     '''
-    title = 'Home - Welcome to The best News Review Website Online'
-    pitches=Pitch.query.all()
+    title = 'Home - Welcome to The pitches Website Online'
+    allinone = Pitch.query.all()
+    pitchesC1=Pitch.query.filter_by(category='P').all()
+    pitchesC2=Pitch.query.filter_by(category='C').all()
+    pitchesC3=Pitch.query.filter_by(category='R').all()
     users= None
-    for pitch in pitches:
-        users= User.query.filter_by(id=pitch.user_id).all()
-        # print(users.username)
-    return render_template('index.html', title = title,pitches=pitches, users=users)
+    for pitch in pitchesC1:
+        comments=Comment.query.filter_by(pitch_id=pitch.id).all()
+        return render_template('index.html', title = title,pitchesC1=pitchesC1, users=users,comments=comments)
 
+    for pitch in pitchesC2:
+        comments=Comment.query.filter_by(pitch_id=pitch.id).all()
+        return render_template('index.html', title = title,pitchesC2=pitchesC2, users=users,comments=comments)
+
+    for pitch in pitchesC3:
+        comments=Comment.query.filter_by(pitch_id=pitch.id).all()
+        return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users,comments=comments)
+
+    return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users,allinone=allinone)
+# from flask import Flask
+# app = Flask(__name__)
+# app.debug = True
+
+# @main.route('/')
+# def hello_world():
+#     return 'Hello, World!'
+#
+# def main():
+#     app.run()
+#
+# if __name__ == '__main__':
+#     main()
+#
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -68,59 +98,119 @@ def update_bio(uname):
 @main.route('/new_pitch/',methods = ['GET','POST'])
 @login_required
 def new_pitch():
-    form = PitchForm()
+    form1 = PitchForm()
+    form2 = CPitchForm()
+    form3 = RPitchForm()
 
-    if form.validate_on_submit():
-        pitch = Pitch(name = form.name.data, user_id = current_user.id)
+
+
+    if form1.validate_on_submit():
+        pitch = Pitch(name = form1.name.data, user_id = current_user.id,category='P')
         db.session.add(pitch)
         db.session.commit()
-        user=User.query.filter_by(id = current_user.id).first()
-        return redirect(url_for('.new_pitch',uname=user.username))
-
-        # return redirect(url_for('.index'))
-    return render_template('profile/new_pitch.html',pitch_form=form)
-
-@main.route('/new_comment/',methods = ['GET','POST'])
-@login_required
-def new_comment():
-    form = CommentForm()
-    # comments = get_comment(id)
-
-    if form.validate_on_submit():
-        pitch = Pitch(name = form.name.data, user_id = current_user.id)
-        comment = Comment(name = form.name.data, pitch_id = pitch.id)
-        db.session.add(comment)
-        db.session.commit()
-        user=User.query.filter_by(id = pitch.id).first()
         return redirect(url_for('.index'))
-
-    return render_template('profile/new_comment.html',comment_form=form)
-
-@main.route('/new_vote/',methods = ['GET','POST'])
-@login_required
-def new_vote():
-    form = VoteForm()
-    # votes = get_vote(id)
-
-    if form.validate_on_submit():
-        pitch = Pitch(name = form.name.data, user_id = current_user.id)
+    if form2.validate_on_submit():
+        pitch = Pitch(name = form2.name.data, user_id = current_user.id,category='C')
+        db.session.add(pitch)
+        db.session.commit()
+        return redirect(url_for('.index'))
+    if form3.validate_on_submit():
+        pitch = Pitch(name = form3.name.data, user_id = current_user.id,category='R')
+        db.session.add(pitch)
+        db.session.commit()
         upvote = Vote(upvote = form.validate_on_submit(),pitch_id = pitch.id)
         downvote = Vote(downvote = form.validate_on_submit(),pitch_id = pitch.id)
         up=0
         down=0
         for upvote in vote:
             up+=1
+            upvote=up
             db.session.add(upvote=up)
             db.session.commit()
         for downvote in vote:
             down+=1
+            downvote=down
             db.session.add(downvote=down)
             db.session.commit()
         user=User.query.filter_by(id = pitch.id).first()
+        return redirect(url_for('.new_pitch',uname=user.username))
+
+        return redirect(url_for('.index'))
+    return render_template('profile/new_pitch.html',pitch_form=form1,Cpitch_form=form2,Rpitch_form=form3)
+
+# @main.route('/new_pitch/r',methods = ['GET','POST'])
+# @login_required
+# def new_pitch():
+#     form = RPitchForm()
+#
+#     if form.validate_on_submit():
+#         pitch = Pitch(name = form.name.data, user_id = current_user.id)
+#         db.session.add(pitch)
+#         db.session.commit()
+#         user=User.query.filter_by(id = current_user.id).first()
+#         return redirect(url_for('.new_pitch',uname=user.username))
+#
+#         # return redirect(url_for('.index'))
+#     return render_template('profile/new_pitch.html',Rpitch_form=form)
+
+# @main.route('/new_pitch/c',methods = ['GET','POST'])
+# @login_required
+# def new_pitch():
+#     form = CPitchForm()
+#
+#     if form.validate_on_submit():
+#         pitch = Pitch(name = form.name.data, user_id = current_user.id)
+#         db.session.add(pitch)
+#         db.session.commit()
+#         user=User.query.filter_by(id = current_user.id).first()
+#         return redirect(url_for('.new_pitch',uname=user.username))
+#
+#         # return redirect(url_for('.index'))
+#     return render_template('profile/new_pitch.html',Cpitch_form=form)
+
+
+@main.route('/new_comment/<int:id>',methods = ['GET','POST'])
+@login_required
+def new_comment(id):
+    form1 = CommentForm()
+    
+    pitch = Pitch(name = form1.name.data, user_id = current_user.id,category='P')
+    pitch = Pitch(name = form2.name.data, user_id = current_user.id,category='C')
+    pitch = Pitch(name = form3.name.data, user_id = current_user.id,category='R')
+    comments=Comment.query.filter_by(pitch_id=id).all()
+    if form.validate_on_submit():
+        comment = Comment(name = form.name.data, pitch_id = id)
+        db.session.add(comment)
+        db.session.commit()
         return redirect(url_for('.index'))
 
-    return render_template('profile/new_comment.html',comment_form=form)
-    return render_template('new_vote.html',upvote = upvote, downvote = downvote, vote_form=form, votes=votes)
+    return render_template('profile/new_comment.html',comment_form=form,)
+
+# @main.route('/new_vote/',methods = ['GET','POST'])
+# @login_required
+# def new_vote():
+#     form = VoteForm()
+#     # votes = get_vote(id)
+#
+#     if form.validate_on_submit():
+#         pitch = Pitch(name = form.name.data, user_id = current_user.id)
+#         upvote = Vote(upvote = form.validate_on_submit(),pitch_id = pitch.id)
+#         downvote = Vote(downvote = form.validate_on_submit(),pitch_id = pitch.id)
+#         up=0
+#         down=0
+#         for upvote in vote:
+#             up+=1
+#             db.session.add(upvote=up)
+#             db.session.commit()
+#         for downvote in vote:
+#             down+=1
+#             db.session.add(downvote=down)
+#             db.session.commit()
+#         user=User.query.filter_by(id = pitch.id).first()
+#         return redirect(url_for('.index'))
+#
+#     return render_template('profile/new_comment.html',comment_form=form)
+#     return render_template('new_vote.html',upvote = upvote, downvote = downvote, vote_form=form, votes=votes)
 
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
 @login_required

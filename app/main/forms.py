@@ -2,6 +2,16 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,TextAreaField,SubmitField
 from wtforms.validators import Required
 
+class RPitchForm(FlaskForm):
+
+    name = StringField('Pitch',validators=[Required()])
+    submit = SubmitField('Submit')
+
+class CPitchForm(FlaskForm):
+
+    name = StringField('Pitch',validators=[Required()])
+    submit = SubmitField('Submit')
+
 class PitchForm(FlaskForm):
 
     name = StringField('Pitch',validators=[Required()])

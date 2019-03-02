@@ -13,11 +13,39 @@
 
 <div class="container" style="text-align:center;">
   <h1 style="text-align:center;margin-bottom:80px;">Pitches</h1>
-  <div class="row" id='pitch' style="display:grid;grid-template-columns: 30% 30% 30%;
-    grid-auto-rows: 25.6em;
-    grid-gap: 60px;">
+  <div class="row" id='pitch' >
+    <!-- Rough Cut Projects
+    Central pitches
+    Round Table pitches -->
+    <h1>Rough Cut Projects</h1>
+    <div style="display:grid;grid-template-columns: 30% 30% 30%;
+      grid-auto-rows: 25.6em;
+      grid-gap: 60px;">
+    {%for pitch in pitchesC1%}
+      {% if current_user.is_authenticated %}
+        <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
+          <p>{{pitch.name}}</p>
+          <p>By User {{pitch.user_id}}</p>
+          <p><a href="{{url_for('main.new_comment',id=current_user.id)}}">Comment</a></p>
+          <p>Posted on {{pitch.posted}}</p>
 
-    {%for pitch in pitches%}
+        </li>
+      {% else %}
+        <li class="well"style="height:300px;"><h4><a href="{{url_for('auth.login')}}">Pitch {{pitch.id}}</a></h4>
+          <p>{{pitch.name}}</p>
+          <p>By User {{pitch.user_id}}</p>
+          <p>Posted on {{pitch.posted}}</p>
+          <h3>Comments</h3>
+          <p>{{comment.name}}</p>
+        </li>
+      {%endif%}
+    {%endfor%}
+    </div>
+    <h1>Central pitches</h1>
+    <div style="display:grid;grid-template-columns: 30% 30% 30%;
+      grid-auto-rows: 25.6em;
+      grid-gap: 60px;">
+    {%for pitch in pitchesC2%}
       {% if current_user.is_authenticated %}
         <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
           <p>{{pitch.name}}</p>
@@ -25,18 +53,45 @@
           <p><a href="{{url_for('main.new_comment',id=current_user.id)}}">Comment</a></p>
           <p><a href="{{url_for('main.new_vote',id=current_user.id)}}">Vote</a></p>
           <p>Posted on {{pitch.posted}}</p>
-          
+
         </li>
       {% else %}
         <li class="well"style="height:300px;"><h4><a href="{{url_for('auth.login')}}">Pitch {{pitch.id}}</a></h4>
           <p>{{pitch.name}}</p>
           <p>By User {{pitch.user_id}}</p>
           <p>Posted on {{pitch.posted}}</p>
+          <h3>Comments</h3>
+          <p>{{comment.name}}</p>
         </li>
       {%endif%}
-
-
     {%endfor%}
+    </div>
+    <h1>Round Table pitches</h1>
+    <div style="display:grid;grid-template-columns: 30% 30% 30%;
+      grid-auto-rows: 25.6em;
+      grid-gap: 60px;">
+    {%for pitch in pitchesC3%}
+      {% if current_user.is_authenticated %}
+        <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
+          <p>{{pitch.name}}</p>
+          <p>By User {{pitch.user_id}}</p>
+          <p><a href="{{url_for('main.new_comment',id=current_user.id)}}">Comment</a></p>
+          <p><a href="{{url_for('main.new_vote',id=current_user.id)}}">Vote</a></p>
+          <p>Posted on {{pitch.posted}}</p>
+
+        </li>
+      {% else %}
+        <li class="well"style="height:300px;"><h4><a href="{{url_for('auth.login')}}">Pitch {{pitch.id}}</a></h4>
+          <p>{{pitch.name}}</p>
+          <p>By User {{pitch.user_id}}</p>
+          <p>Posted on {{pitch.posted}}</p>
+          <h3>Comments</h3>
+          <p>{{comment.name}}</p>
+        </li>
+      {%endif%}
+    {%endfor%}
+    </div>
+    {{macro.displayCommentList(comments)}}
 
   </div>
 </div>
