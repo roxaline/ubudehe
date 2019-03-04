@@ -34,7 +34,7 @@ def index():
         comments=Comment.query.filter_by(pitch_id=pitch.id).all()
         return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users,comments=comments,pitches=pitchesC1)
 
-    return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users,allinone=allinone)
+    return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users)
 # from flask import Flask
 # app = Flask(__name__)
 # app.debug = True
