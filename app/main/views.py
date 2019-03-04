@@ -102,7 +102,9 @@ def new_pitch():
     form2 = CPitchForm()
     form3 = RPitchForm()
 
-
+    pitchesC1=Pitch.query.filter_by(category='P').all()
+    pitchesC2=Pitch.query.filter_by(category='C').all()
+    pitchesC3=Pitch.query.filter_by(category='R').all()
 
     if form1.validate_on_submit():
         pitch = Pitch(name = form1.name.data, user_id = current_user.id,category='P')
@@ -172,8 +174,11 @@ def new_pitch():
 @main.route('/new_comment/<int:id>',methods = ['GET','POST'])
 @login_required
 def new_comment(id):
-    form1 = CommentForm()
-    
+    form = CommentForm()
+    form1 = PitchForm()
+    form2 = CPitchForm()
+    form3 = RPitchForm()
+
     pitch = Pitch(name = form1.name.data, user_id = current_user.id,category='P')
     pitch = Pitch(name = form2.name.data, user_id = current_user.id,category='C')
     pitch = Pitch(name = form3.name.data, user_id = current_user.id,category='R')

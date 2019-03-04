@@ -36,7 +36,7 @@
           <p>By User {{pitch.user_id}}</p>
           <p>Posted on {{pitch.posted}}</p>
           <h3>Comments</h3>
-          <p>{{comment.name}}</p>
+          <p>{{comments.name}}</p>
         </li>
       {%endif%}
     {%endfor%}
@@ -61,12 +61,13 @@
           <p>By User {{pitch.user_id}}</p>
           <p>Posted on {{pitch.posted}}</p>
           <h3>Comments</h3>
-          <p>{{comment.name}}</p>
+          <p>{{comments.name}}</p>
         </li>
       {%endif%}
     {%endfor%}
     </div>
     <h1>Round Table pitches</h1>
+    {{macro.displayPitches(R)}}
     <div style="display:grid;grid-template-columns: 30% 30% 30%;
       grid-auto-rows: 25.6em;
       grid-gap: 60px;">
@@ -86,7 +87,7 @@
           <p>By User {{pitch.user_id}}</p>
           <p>Posted on {{pitch.posted}}</p>
           <h3>Comments</h3>
-          <p>{{comment.name}}</p>
+          <p>{{comments.name}}</p>
         </li>
       {%endif%}
     {%endfor%}
