@@ -1,14 +1,27 @@
 {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
+{% import 'macros.html' as macro%}
 
 {% block content %}
     <div class="container">
 
-        <div class="col-md-8">
+      <div class="col-md-8">
+        {%for pitch in pitchesC1%}
+        <li style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
+          <p>{{pitch.name}}</p>
+          Posted on
+          <p>{{pitch.posted}}</p>
+          <p>By User {{pitch.user_id}}</p>
+        </li>
+        {%endfor%}
 
-        </div>
+        <h3>Pitch {{pitches.id}} Comments</h3>
+        <p>{{macro.displayCommentList(comments)}}</p>
+      </div>
+
 
         <div class="col-md-4">
+          <h3>Comment</h3>
            {{ wtf.quick_form(comment_form) }}
            {{simplemde.load}}
        </div>

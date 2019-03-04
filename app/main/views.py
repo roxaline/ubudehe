@@ -17,22 +17,22 @@ def index():
     View root page function that returns the index page and its data
     '''
     title = 'Home - Welcome to The pitches Website Online'
-    allinone = Pitch.query.all()
+    pitches = Pitch.query.all()
     pitchesC1=Pitch.query.filter_by(category='P').all()
     pitchesC2=Pitch.query.filter_by(category='C').all()
     pitchesC3=Pitch.query.filter_by(category='R').all()
     users= None
     for pitch in pitchesC1:
         comments=Comment.query.filter_by(pitch_id=pitch.id).all()
-        return render_template('index.html', title = title,pitchesC1=pitchesC1, users=users,comments=comments)
+        return render_template('index.html', title = title,pitchesC1=pitchesC1, users=users,comments=comments,pitches=pitchesC1)
 
     for pitch in pitchesC2:
         comments=Comment.query.filter_by(pitch_id=pitch.id).all()
-        return render_template('index.html', title = title,pitchesC2=pitchesC2, users=users,comments=comments)
+        return render_template('index.html', title = title,pitchesC2=pitchesC2, users=users,comments=comments,pitches=pitchesC2)
 
     for pitch in pitchesC3:
         comments=Comment.query.filter_by(pitch_id=pitch.id).all()
-        return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users,comments=comments)
+        return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users,comments=comments,pitches=pitchesC1)
 
     return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users,allinone=allinone)
 # from flask import Flask
@@ -49,14 +49,19 @@ def index():
 # if __name__ == '__main__':
 #     main()
 #
-@main.route('/user/<uname>')
+@main.route('/user/<uname>/')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
+    # user = User.query.all()
+    pitchesC1=Pitch.query.filter_by(category='P').all()
+    pitchesC2=Pitch.query.filter_by(category='C').all()
+    pitchesC3=Pitch.query.filter_by(category='R').all()
+    # pitches=Pitch.query.filter_by(user_id=id).all()
 
     if user is None:
         abort(404)
 
-    return render_template("profile/profile.html", user = user)
+    return render_template("profile/profile.html", user = user,pitches=pitchesC1)
 
 @main.route('/user/<uname>/update/bio',methods = ['GET','POST'])
 @login_required
@@ -102,10 +107,11 @@ def new_pitch():
     form2 = CPitchForm()
     form3 = RPitchForm()
 
-    pitchesC1=Pitch.query.filter_by(category='P').all()
-    pitchesC2=Pitch.query.filter_by(category='C').all()
-    pitchesC3=Pitch.query.filter_by(category='R').all()
-
+    P=pitchesC1=Pitch.query.filter_by(category='P').all()
+    C=pitchesC2=Pitch.query.filter_by(category='C').all()
+    R=pitchesC3=Pitch.query.filter_by(category='R').all()
+    pitches=Pitch.query.filter_by(category='P').all()
+    # users=User.query.filter_by(id=id).all()
     if form1.validate_on_submit():
         pitch = Pitch(name = form1.name.data, user_id = current_user.id,category='P')
         db.session.add(pitch)
@@ -136,9 +142,8 @@ def new_pitch():
             db.session.commit()
         user=User.query.filter_by(id = pitch.id).first()
         return redirect(url_for('.new_pitch',uname=user.username))
-
         return redirect(url_for('.index'))
-    return render_template('profile/new_pitch.html',pitch_form=form1,Cpitch_form=form2,Rpitch_form=form3)
+    return render_template('profile/new_pitch.html',pitch_form=form1,Cpitch_form=form2,Rpitch_form=form3,pitchesC1=pitchesC1,pitchesC2=pitchesC2,pitchesC3=pitchesC3,pitches=pitches,P=P,C=C,R=R)
 
 # @main.route('/new_pitch/r',methods = ['GET','POST'])
 # @login_required
@@ -175,13 +180,14 @@ def new_pitch():
 @login_required
 def new_comment(id):
     form = CommentForm()
-    form1 = PitchForm()
-    form2 = CPitchForm()
-    form3 = RPitchForm()
+    # pitchesC1=get_pitch('P')
+    # pitchesC2=get_pitch('C')
+    # pitchesC3=get_pitch('R')
 
-    pitch = Pitch(name = form1.name.data, user_id = current_user.id,category='P')
-    pitch = Pitch(name = form2.name.data, user_id = current_user.id,category='C')
-    pitch = Pitch(name = form3.name.data, user_id = current_user.id,category='R')
+    pitchesC1=Pitch.query.filter_by(category='P',id=id).all()
+    pitchesC2=Pitch.query.filter_by(category='C',id=id).all()
+    pitchesC3=Pitch.query.filter_by(category='R',id=id).all()
+    pitches=Pitch.query.filter_by(id=id).all()
     comments=Comment.query.filter_by(pitch_id=id).all()
     if form.validate_on_submit():
         comment = Comment(name = form.name.data, pitch_id = id)
@@ -189,7 +195,7 @@ def new_comment(id):
         db.session.commit()
         return redirect(url_for('.index'))
 
-    return render_template('profile/new_comment.html',comment_form=form,)
+    return render_template('profile/new_comment.html',comment_form=form,comments=comments,pitchesC1=pitchesC1,pitchesC2=pitchesC2,pitchesC3=pitchesC3,pitches=pitches)
 
 # @main.route('/new_vote/',methods = ['GET','POST'])
 # @login_required

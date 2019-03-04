@@ -56,15 +56,15 @@ class Pitch(db.Model):
     # votes = db.relationship('Vote',backref ='vote',lazy = "dynamic")
 
     # users = db.relationship('User',backref = 'pitch',lazy="dynamic")
-
+    #
     # def save_pitch(self):
     #     db.session.add(self)
     #     db.session.commit()
-
-    @classmethod
-    def get_pitches(cls,id):
-        pitches = Pitch.query.filter_by(user_id=id).all()
-        return pitches
+    #
+    # @classmethod
+    # def get_pitches(cls,id):
+    #     pitches = Pitch.query.filter_by(user_id=id).all()
+    #     return pitches
 
 
     def __repr__(self):
@@ -82,11 +82,11 @@ class Comment(db.Model):
     # def save_comment(self):
     #     db.session.add(self)
     #     db.session.commit()
-
-    @classmethod
-    def get_comments(cls,id):
-        comments = Comment.query.filter_by(pitch_id=id).all()
-        return comments
+    #
+    # @classmethod
+    # def get_comments(cls,id):
+    #     comments = Comment.query.filter_by(pitch_id=id).all()
+    #     return comments
 
     def __repr__(self):
         return f'User {self.name}'

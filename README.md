@@ -58,14 +58,12 @@ It is still in Development and that will be soon resolved.
 ### Input Example
 
 **When it receives:**
-1.
-2.
+1. the user's click on pitch name
 
 ### Output Example
 
 **It should return:**
-1.
-2.
+1. the pitch's details/comments
 
 ## Technologies Used
 
