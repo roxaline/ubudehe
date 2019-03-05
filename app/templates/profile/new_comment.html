@@ -5,17 +5,17 @@
     <div class="container"style="text-align:center;background-color:#accacc;>
 
       <div class="col-md-8">
-        {%for pitch in pitchesC1%}
+        {%for pitch in pitches%}
         <li style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
           <p>{{pitch.name}}</p>
           Posted on
           <p>{{pitch.posted}}</p>
           <p>By User {{pitch.user_id}}</p>
         </li>
-        {%endfor%}
+
 
         <h3>Pitch Comments</h3>
-        {%for comment in comments%}<p>{{comment.id}}.{{comment.name}}</p><strong></strong>{%endfor%}
+        {%for comment in comments%}<p>{{comment.id}}.{{comment.name}}</p><strong></strong>{%endfor%}{%endfor%}
       </div>
 
         <div class="col-md-4">

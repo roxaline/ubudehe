@@ -17,22 +17,22 @@ def index():
     View root page function that returns the index page and its data
     '''
     title = 'Home - Welcome to The pitches Website Online'
-    pitches = Pitch.query.all()
+    # pitches = Pitch.query.all()
     pitchesC1=Pitch.query.filter_by(category='P').all()
     pitchesC2=Pitch.query.filter_by(category='C').all()
     pitchesC3=Pitch.query.filter_by(category='R').all()
     users= None
     for pitch in pitchesC1:
         comments=Comment.query.filter_by(pitch_id=pitch.id).all()
-        return render_template('index.html', title = title,pitchesC1=pitchesC1, users=users,comments=comments,pitches=pitchesC1)
+        return render_template('index.html', title = title,pitchesC1=pitchesC1, users=users,comments=comments)
 
     for pitch in pitchesC2:
         comments=Comment.query.filter_by(pitch_id=pitch.id).all()
-        return render_template('index.html', title = title,pitchesC2=pitchesC2, users=users,comments=comments,pitches=pitchesC2)
+        return render_template('index.html', title = title,pitchesC2=pitchesC2, users=users,comments=comments)
 
     for pitch in pitchesC3:
         comments=Comment.query.filter_by(pitch_id=pitch.id).all()
-        return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users,comments=comments,pitches=pitchesC1)
+        return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users,comments=comments)
 
     return render_template('index.html', title = title,pitchesC3=pitchesC3, users=users)
 # from flask import Flask
@@ -56,6 +56,7 @@ def profile(uname):
     pitchesC1=Pitch.query.filter_by(category='P').all()
     pitchesC2=Pitch.query.filter_by(category='C').all()
     pitchesC3=Pitch.query.filter_by(category='R').all()
+    print(pitchesC1)
     # pitches=Pitch.query.filter_by(user_id=id).all()
 
     if user is None:
@@ -82,24 +83,6 @@ def update_bio(uname):
 
     return render_template('profile/update_bio.html',form =form)
 
-# @main.route('/user/update/pitch/<id>',methods = ['GET','POST'])
-# def single_review(id):
-#     pitch=Pitch.query.get(id)
-#     if pitch is None:
-#         abort(404)
-#     form = PitchForm()
-#
-#     if form.validate_on_submit():
-#         user.pitches = form.pitches.data
-#
-#         db.session.add(user)
-#         db.session.commit()
-#
-#         return redirect(url_for('.profile',pitch=user.pitches))
-#
-#     format_pitch = markdown2.markdown(pitch.movie_pitch,extras=["code-friendly", "fenced-code-blocks"])
-#     return render_template('new_pitch.html',pitch = pitch,format_pitch=format_pitch)
-
 @main.route('/new_pitch/',methods = ['GET','POST'])
 @login_required
 def new_pitch():
@@ -107,74 +90,43 @@ def new_pitch():
     form2 = CPitchForm()
     form3 = RPitchForm()
 
-    P=pitchesC1=Pitch.query.filter_by(category='P').all()
-    C=pitchesC2=Pitch.query.filter_by(category='C').all()
-    R=pitchesC3=Pitch.query.filter_by(category='R').all()
-    pitches=Pitch.query.filter_by(category='P').all()
-    # users=User.query.filter_by(id=id).all()
+    P=pitchesC1=Pitch.category='P'
+    C=pitchesC2=Pitch.category='C'
+    R=pitchesC3=Pitch.category='R'
     if form1.validate_on_submit():
-        pitch = Pitch(name = form1.name.data, user_id = current_user.id,category='P')
+        pitch = Pitch(name = form1.name.data, user_id = current_user.id,category=form1.category.data)
         db.session.add(pitch)
         db.session.commit()
         return redirect(url_for('.index'))
-    if form2.validate_on_submit():
+    elif form2.validate_on_submit():
         pitch = Pitch(name = form2.name.data, user_id = current_user.id,category='C')
         db.session.add(pitch)
         db.session.commit()
         return redirect(url_for('.index'))
-    if form3.validate_on_submit():
+    elif form3.validate_on_submit():
         pitch = Pitch(name = form3.name.data, user_id = current_user.id,category='R')
         db.session.add(pitch)
         db.session.commit()
-        upvote = Vote(upvote = form.validate_on_submit(),pitch_id = pitch.id)
-        downvote = Vote(downvote = form.validate_on_submit(),pitch_id = pitch.id)
-        up=0
-        down=0
-        for upvote in vote:
-            up+=1
-            upvote=up
-            db.session.add(upvote=up)
-            db.session.commit()
-        for downvote in vote:
-            down+=1
-            downvote=down
-            db.session.add(downvote=down)
-            db.session.commit()
-        user=User.query.filter_by(id = pitch.id).first()
-        return redirect(url_for('.new_pitch',uname=user.username))
+        # upvote = Vote(upvote = form.validate_on_submit(),pitch_id = pitch.id)
+        # downvote = Vote(downvote = form.validate_on_submit(),pitch_id = pitch.id)
+        # up=0
+        # down=0
+        # for upvote in vote:
+        #     up+=1
+        #     upvote=up
+        #     db.session.add(upvote=up)
+        #     db.session.commit()
+        # for downvote in vote:
+        #     down+=1
+        #     downvote=down
+        #     db.session.add(downvote=down)
+        #     db.session.commit()
+        # user=User.query.filter_by(id = pitch.id).first()
+        # return redirect(url_for('.new_pitch',uname=user.username))
         return redirect(url_for('.index'))
-    return render_template('profile/new_pitch.html',pitch_form=form1,Cpitch_form=form2,Rpitch_form=form3,pitchesC1=pitchesC1,pitchesC2=pitchesC2,pitchesC3=pitchesC3,pitches=pitches,P=P,C=C,R=R)
-
-# @main.route('/new_pitch/r',methods = ['GET','POST'])
-# @login_required
-# def new_pitch():
-#     form = RPitchForm()
-#
-#     if form.validate_on_submit():
-#         pitch = Pitch(name = form.name.data, user_id = current_user.id)
-#         db.session.add(pitch)
-#         db.session.commit()
-#         user=User.query.filter_by(id = current_user.id).first()
-#         return redirect(url_for('.new_pitch',uname=user.username))
-#
-#         # return redirect(url_for('.index'))
-#     return render_template('profile/new_pitch.html',Rpitch_form=form)
-
-# @main.route('/new_pitch/c',methods = ['GET','POST'])
-# @login_required
-# def new_pitch():
-#     form = CPitchForm()
-#
-#     if form.validate_on_submit():
-#         pitch = Pitch(name = form.name.data, user_id = current_user.id)
-#         db.session.add(pitch)
-#         db.session.commit()
-#         user=User.query.filter_by(id = current_user.id).first()
-#         return redirect(url_for('.new_pitch',uname=user.username))
-#
-#         # return redirect(url_for('.index'))
-#     return render_template('profile/new_pitch.html',Cpitch_form=form)
-
+    else:
+        print("ok")
+    return render_template('profile/new_pitch.html',pitch_form=form1,Cpitch_form=form2,Rpitch_form=form3,pitchesC1=pitchesC1,pitchesC2=pitchesC2,pitchesC3=pitchesC3,P=P,C=C,R=R)
 
 @main.route('/new_comment/<int:id>',methods = ['GET','POST'])
 @login_required

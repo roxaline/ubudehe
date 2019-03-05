@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,TextAreaField,SubmitField
+from wtforms import StringField,TextAreaField,SubmitField,SelectField
 from wtforms.validators import Required
 
 class RPitchForm(FlaskForm):
@@ -13,7 +13,7 @@ class CPitchForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class PitchForm(FlaskForm):
-
+    category = SelectField('category',choices=[('P','Rough Cut Projects'),('C','Central pitches'),('R','Round Table pitches')])
     name = StringField('Pitch',validators=[Required()])
     submit = SubmitField('Submit')
 

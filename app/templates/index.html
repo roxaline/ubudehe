@@ -27,8 +27,6 @@
           <p>{{pitch.name}}</p>
           <p>By User {{pitch.user_id}}</p>
           <p><a href="{{url_for('main.new_comment',id=pitch.id)}}">More</a></p>
-
-
         </li>
       {% else %}
         <li class="well"style="height:300px;"><h4><a href="{{url_for('auth.login')}}">Pitch {{pitch.id}}</a></h4>
@@ -49,7 +47,6 @@
           <p>{{pitch.name}}</p>
           <p>By User {{pitch.user_id}}</p>
           <p><a href="{{url_for('main.new_comment',id=pitch.id)}}">Comment</a></p>
-          <p><a href="{{url_for('main.new_vote',id=pitch.id)}}">Vote</a></p>
           <p>Posted on {{pitch.posted}}</p>
 
         </li>
@@ -73,7 +70,6 @@
           <p>{{pitch.name}}</p>
           <p>By User {{pitch.user_id}}</p>
           <p><a href="{{url_for('main.new_comment',id=pitch.id)}}">Comment</a></p>
-          <p><a href="{{url_for('main.new_vote',id=pitch.id)}}">Vote</a></p>
           <p>Posted on {{pitch.posted}}</p>
 
         </li>

@@ -2,7 +2,7 @@
 {% import 'macros.html' as macro%}
 
 {% block content %}
-<div class="container"style="text-align:center;background-color:#accacc;>
+<div class="container"style="text-align:center;background-color:#accacc;">
 <div class="row">
 <!-- displaying  Username-->
   <div class="col-md-4">
@@ -21,11 +21,8 @@
 
     {% if user == current_user %}
     <h4><a href="{{url_for('main.new_pitch',id = current_user.id)}}">Create Pitch</a></h4>
-    <!-- {{macro.displayPitches(P)}}
-    {{macro.displayPitches(R)}}
-    {{macro.displayPitches(C)}} -->
 
-    <p>{{user.pitches}}</p>
+
     {% endif %}
 
   </div>
@@ -56,6 +53,10 @@
     </form>
       {% endif %}
   </div>
+</div>
+<div class="row"style='margin:50px;margin-top:50px'>
+  <h2 style='font-style:italic'>Your Pitches</h2>
+  {{macro.displayPitches(pitches, current_user)}}
 </div>
 </div>
 {% endblock %}
