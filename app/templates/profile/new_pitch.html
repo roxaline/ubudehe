@@ -4,17 +4,17 @@
 {% block content %}
     <div class="container">
 
-      <div class="pitch_form">
+      <div class="container"class="pitch_form"style="text-align:center;background-color:#accacc;margin-top:20px;padding:20px">
         <h1>Rough Cut Projects</h1>
         {{ wtf.quick_form(pitch_form) }}
         {{simplemde.load}}
       </div>
-      <div class="Cpitch_form">
+      <div class="container"class="Cpitch_form"style="text-align:center;background-color:#accacc;margin-top:50px;padding:20px">
         <h1>Central pitches</h1>
         {{ wtf.quick_form(Cpitch_form) }}
         {{simplemde.load}}
       </div>
-      <div class="Rpitch_form">
+      <div class="container"class="Rpitch_form"style="text-align:center;background-color:#accacc;margin-top:50px;padding:20px">
         <h1>Round Table pitches</h1>
         {{ wtf.quick_form(Rpitch_form) }}
         {{simplemde.load}}
@@ -32,5 +32,4 @@
         </div>
       </div>
     </div> -->
-
 {% endblock %}

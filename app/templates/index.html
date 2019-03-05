@@ -11,13 +11,13 @@
 <!-- Content block -->
 {% block content %}
 
-<div class="container" style="text-align:center;">
+<div class="container" style="text-align:center;background-color:#accacc;">
   <h1 style="text-align:center;margin-bottom:80px;">Pitches</h1>
   <div class="row" id='pitch' >
     <!-- Rough Cut Projects
     Central pitches
     Round Table pitches -->
-    <h1>Rough Cut Projects</h1>
+    <h3 style="margin-bottom:80px;">Rough Cut Projects</h3>
     <div style="display:grid;grid-template-columns: 30% 30% 30%;
       grid-auto-rows: 25.6em;
       grid-gap: 60px;">
@@ -26,8 +26,8 @@
         <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
           <p>{{pitch.name}}</p>
           <p>By User {{pitch.user_id}}</p>
-          <p><a href="{{url_for('main.new_comment',id=current_user.id)}}">Comment</a></p>
-          <p>Posted on {{pitch.posted}}</p>
+          <p><a href="{{url_for('main.new_comment',id=pitch.id)}}">More</a></p>
+
 
         </li>
       {% else %}
@@ -39,7 +39,7 @@
       {%endif%}
     {%endfor%}
     </div>
-    <h1>Central pitches</h1>
+    <h3 style="margin-bottom:80px;">Central pitches</h3>
     <div style="display:grid;grid-template-columns: 30% 30% 30%;
       grid-auto-rows: 25.6em;
       grid-gap: 60px;">
@@ -48,8 +48,8 @@
         <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
           <p>{{pitch.name}}</p>
           <p>By User {{pitch.user_id}}</p>
-          <p><a href="{{url_for('main.new_comment',id=current_user.id)}}">Comment</a></p>
-          <p><a href="{{url_for('main.new_vote',id=current_user.id)}}">Vote</a></p>
+          <p><a href="{{url_for('main.new_comment',id=pitch.id)}}">Comment</a></p>
+          <p><a href="{{url_for('main.new_vote',id=pitch.id)}}">Vote</a></p>
           <p>Posted on {{pitch.posted}}</p>
 
         </li>
@@ -62,7 +62,7 @@
       {%endif%}
     {%endfor%}
     </div>
-    <h1>Round Table pitches</h1>
+    <h3 style="margin-bottom:80px;">Round Table pitches</h3>
     {{macro.displayPitches(R)}}
     <div style="display:grid;grid-template-columns: 30% 30% 30%;
       grid-auto-rows: 25.6em;
@@ -72,8 +72,8 @@
         <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
           <p>{{pitch.name}}</p>
           <p>By User {{pitch.user_id}}</p>
-          <p><a href="{{url_for('main.new_comment',id=current_user.id)}}">Comment</a></p>
-          <p><a href="{{url_for('main.new_vote',id=current_user.id)}}">Vote</a></p>
+          <p><a href="{{url_for('main.new_comment',id=pitch.id)}}">Comment</a></p>
+          <p><a href="{{url_for('main.new_vote',id=pitch.id)}}">Vote</a></p>
           <p>Posted on {{pitch.posted}}</p>
 
         </li>
@@ -86,8 +86,9 @@
       {%endif%}
     {%endfor%}
     </div>
-    {{macro.displayCommentList(comments)}}
-
+    <footer style='background-color:black;color:white'>
+      <span style='margin:10px;''><p>Copyright(c)2019</p> <h5>Juru-10</h5></span>
+    </footer>
   </div>
 </div>
 {% endblock%}

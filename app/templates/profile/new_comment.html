@@ -1,9 +1,8 @@
 {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
-{% import 'macros.html' as macro%}
 
 {% block content %}
-    <div class="container">
+    <div class="container"style="text-align:center;background-color:#accacc;>
 
       <div class="col-md-8">
         {%for pitch in pitchesC1%}
@@ -15,13 +14,11 @@
         </li>
         {%endfor%}
 
-        <h3>Pitch {{pitches.id}} Comments</h3>
-        <p>{{macro.displayCommentList(comments)}}</p>
+        <h3>Pitch Comments</h3>
+        {%for comment in comments%}<p>{{comment.id}}.{{comment.name}}</p><strong></strong>{%endfor%}
       </div>
 
-
         <div class="col-md-4">
-          <h3>Comment</h3>
            {{ wtf.quick_form(comment_form) }}
            {{simplemde.load}}
        </div>
@@ -38,6 +35,9 @@
           {{format_comment|safe}}
         </div>
       </div>
+      <footer style='background-color:black;color:white;text-align:center;margin-top:300px'>
+        <span style='margin:10px;''><p>Copyright(c)2019</p> <h5>Juru-10</h5></span>
+      </footer>
     </div>
 
 {% endblock %}
