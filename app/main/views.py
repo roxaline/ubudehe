@@ -6,10 +6,6 @@ from .forms import PitchForm,CommentForm,VoteForm,UpdateProfile,CPitchForm,RPitc
 from .. import db,photos
 from flask_login import login_required,current_user
 import markdown2
-# from flask import Flask
-# app = Flask(__name__)
-# app.debug = True
-#
 
 @main.route('/',methods = ['GET','POST'])
 def index():
@@ -18,9 +14,12 @@ def index():
     '''
     title = 'Home - Welcome to The pitches Website Online'
     # pitches = Pitch.query.all()
+    form1 = PitchForm()
+    category=form1.category.data
     pitchesC1=Pitch.query.filter_by(category='P').all()
     pitchesC2=Pitch.query.filter_by(category='C').all()
     pitchesC3=Pitch.query.filter_by(category='R').all()
+
     users= None
     for pitch in pitchesC1:
         comments=Comment.query.filter_by(pitch_id=pitch.id).all()
