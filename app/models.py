@@ -8,22 +8,30 @@ from datetime import datetime
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+class Citizen(db.Model):
+    __tablename__ = 'citizens'
+
+    id = db.Column(db.Integer,primary_key = True)
+    fname = db.Column(db.String(255))
+    lname = db.Column(db.String(255))
+    ID = db.Column(db.Integer)
+    status = db.Column(db.String(255))
+    insurance  = db.Column(db.String(255))
+
+    def __repr__(self):
+        return f'Citizen {self.lname}'
+
+
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key = True)
+    company = db.Column(db.String(255))
+    role = db.Column(db.String(255))
     username = db.Column(db.String(255),index = True)
     email = db.Column(db.String(255),unique = True,index = True)
-    # pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
-    # comment_id = db.Column(db.Integer,db.ForeignKey('comments.id'))
-    # vote_id = db.Column(db.Integer,db.ForeignKey('votes.id'))
-    bio = db.Column(db.String)
-    profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
-    pitches = db.relationship('Pitch', backref ='user',lazy = "dynamic")
-
-    # comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
-    # votes = db.relationship('Vote',backref = 'user',lazy = "dynamic")
+    # pitches = db.relationship('Pitch', backref ='user',lazy = "dynamic")
 
     @property
     def password(self):
@@ -40,76 +48,33 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
-class Pitch(db.Model):
-    __tablename__ = 'pitches'
+class Searched:
 
-    id = db.Column(db.Integer,primary_key = True)
-    category = db.Column(db.String)
-    name = db.Column(db.String)
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    posted = db.Column(db.DateTime,default=datetime.utcnow)
-    upvote = db.Column(db.Integer)
-    downvote = db.Column(db.Integer)
-    # comment_id = db.Column(db.Integer,db.ForeignKey('comments.id'))
-    # vote_id = db.Column(db.Integer,db.ForeignKey('votes.id'))
-    comments = db.relationship('Comment',backref ='comments',lazy = "dynamic")
-    # votes = db.relationship('Vote',backref ='vote',lazy = "dynamic")
+    all_searched = []
 
-    # users = db.relationship('User',backref = 'pitch',lazy="dynamic")
-    #
-    # def save_pitch(self):
-    #     db.session.add(self)
-    #     db.session.commit()
-    #
-    # @classmethod
-    # def get_pitches(cls,id):
-    #     pitches = Pitch.query.filter_by(user_id=id).all()
-    #     return pitches
+    def __init__(self,fname,lname,ID,status,insurance):
+        self.fname = fname
+        self.lname = lname
+        self.ID = ID
+        self.status = status
+        self.insurance = insurance
 
 
-    def __repr__(self):
-        return f'User {self.name}'
+    def save_searched(self):
+        Searched.all_searched.append(self)
 
-class Comment(db.Model):
-    __tablename__ = 'comments'
-
-    id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String)
-    # user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-    pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
-    # users = db.relationship('User',backref = 'comment',lazy="dynamic")
-
-    # def save_comment(self):
-    #     db.session.add(self)
-    #     db.session.commit()
-    #
-    # @classmethod
-    # def get_comments(cls,id):
-    #     comments = Comment.query.filter_by(pitch_id=id).all()
-    #     return comments
-
-    def __repr__(self):
-        return f'User {self.name}'
-
-class Vote(db.Model):
-    __tablename__ = 'votes'
-
-    id = db.Column(db.Integer,primary_key = True)
-    upvote = db.Column(db.String(255))
-    downvote = db.Column(db.String(255))
-    # user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-    pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
-    # users = db.relationship('User',backref = 'comment',lazy="dynamic")
-
-    # def save_vote(self):
-    #     db.session.add(self)
-    #     db.session.commit()
 
     @classmethod
-    def get_votes(cls,id):
-        votes = Vote.query.filter_by(pitch_id=id).all()
-        return votes
+    def clear_searched(cls):
+        Searched.all_searched.clear()
 
+    @classmethod
+    def get_searched(cls,id):
 
-    def __repr__(self):
-        return f'User {self.upvote}'
+        response = []
+
+        for searched in cls.all_searched:
+            if searched.ID == ID:
+                response.append(review)
+
+        return response
