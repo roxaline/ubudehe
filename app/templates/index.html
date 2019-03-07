@@ -10,81 +10,50 @@
 
 <!-- Content block -->
 {% block content %}
-
-<div class="container" style="text-align:center;background-color:#accacc;">
-  <h1 style="text-align:center;margin-bottom:80px;">Pitches</h1>
-  <div class="row" id='pitch' >
-    <!-- Rough Cut Projects
-    Central pitches
-    Round Table pitches -->
-    <h3 style="margin-bottom:80px;">Rough Cut Projects</h3>
-    <div style="display:grid;grid-template-columns: 30% 30% 30%;
-      grid-auto-rows: 25.6em;
-      grid-gap: 60px;">
-    {%for pitch in pitchesC1%}
-      {% if current_user.is_authenticated %}
-        <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
-          <p>{{pitch.name}}</p>
-          <p>By User {{pitch.user_id}}</p>
-          <p><a href="{{url_for('main.new_comment',id=pitch.id)}}">More</a></p>
-        </li>
-      {% else %}
-        <li class="well"style="height:300px;"><h4><a href="{{url_for('auth.login')}}">Pitch {{pitch.id}}</a></h4>
-          <p>{{pitch.name}}</p>
-          <p>By User {{pitch.user_id}}</p>
-          <p>Posted on {{pitch.posted}}</p>
-        </li>
-      {%endif%}
-    {%endfor%}
+<body style="background-image:url('https://media.istockphoto.com/vectors/water-bubbles-vector-illustration-abstract-bubbles-white-transparent-vector-id947316044?k=6&m=947316044&s=612x612&w=0&h=VHzgeLJ_QTHO4_6g_W5eLnsBzwr7wSm3oEOaLhYOYKA=');background-size: cover">
+  
+  <div class="container" style="text-align:center;background-color:white;">
+    <div class="panel panel-heading" style="height">
+      <h1 style="text-align:center;margin-bottom:80px; color:black">Ubudehe Info Provider</h1>
     </div>
-    <h3 style="margin-bottom:80px;">Central pitches</h3>
-    <div style="display:grid;grid-template-columns: 30% 30% 30%;
-      grid-auto-rows: 25.6em;
-      grid-gap: 60px;">
-    {%for pitch in pitchesC2%}
-      {% if current_user.is_authenticated %}
-        <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
-          <p>{{pitch.name}}</p>
-          <p>By User {{pitch.user_id}}</p>
-          <p><a href="{{url_for('main.new_comment',id=pitch.id)}}">Comment</a></p>
-          <p>Posted on {{pitch.posted}}</p>
-
-        </li>
-      {% else %}
-        <li class="well"style="height:300px;"><h4><a href="{{url_for('auth.login')}}">Pitch {{pitch.id}}</a></h4>
-          <p>{{pitch.name}}</p>
-          <p>By User {{pitch.user_id}}</p>
-          <p>Posted on {{pitch.posted}}</p>
-        </li>
-      {%endif%}
-    {%endfor%}
+    <div class="well">
+      <h2><strong>Ubudehe</strong></h2>
+      <p>Ubudehe refers to the long-standing Rwandan practice and culture of
+        collective action and mutual support to solve problems within a community,
+        according to a recent academic research paper.
+      </p>
+      <img src="../static/photos/2vfn81.gif" width="100%" height="400px">
+      <h3><strong>Why</strong>?</h3>
+      <p>Information is the major thing in everybody's personal life.
+        Ubudehe helps Rwandan citizen to access things basing on thier living style,
+        in every aspect of life.
+        It also helps people from knowing that they have equal rights where someone
+        can not be in charge of something above
+        his/her acapabilities.</p>
+    </div> 
+    <div class="well">
+      <h3><strong>When</strong> and <strong>where</strong>?</h3>
+      <p> Ubudehe was launched into Rwandan life it was as way to better involve
+        communities in their development by setting up participatory problem solving
+        mechanisms. The program was seen as a way to strengthen democratic processes
+        and good governance through greater community involvement in decision
+        making. Ubudehe creates opportunities for people at all levels of society,
+        especially the village level, to interact with one another, share ideas,
+        create institutions and make decisions for their collective development.</p>
     </div>
-    <h3 style="margin-bottom:80px;">Round Table pitches</h3>
-    {{macro.displayPitches(R)}}
-    <div style="display:grid;grid-template-columns: 30% 30% 30%;
-      grid-auto-rows: 25.6em;
-      grid-gap: 60px;">
-    {%for pitch in pitchesC3%}
-      {% if current_user.is_authenticated %}
-        <li class="well"style="height:300px;"><h4>Pitch {{pitch.id}}</h4>
-          <p>{{pitch.name}}</p>
-          <p>By User {{pitch.user_id}}</p>
-          <p><a href="{{url_for('main.new_comment',id=pitch.id)}}">Comment</a></p>
-          <p>Posted on {{pitch.posted}}</p>
-
-        </li>
-      {% else %}
-        <li class="well"style="height:300px;"><h4><a href="{{url_for('auth.login')}}">Pitch {{pitch.id}}</a></h4>
-          <p>{{pitch.name}}</p>
-          <p>By User {{pitch.user_id}}</p>
-          <p>Posted on {{pitch.posted}}</p>
-        </li>
-      {%endif%}
-    {%endfor%}
-    </div>
-    <footer style='background-color:black;color:white'>
-      <span style='margin:10px;''><p>Copyright(c)2019</p> <h5>Juru-10</h5></span>
-    </footer>
+    <div class="well">
+      <p>This government statment has been a way of facilitating everybody according to 
+        his/her right and the limitation of his capabilities.
+        Yes.It is way of poverty reduction where the government support people
+        with lower living founds by offering and giving them what they need (<strong>eg:</strong> Gira inka
+        Munyarwanda) according to their ubudehe categories.
+        Others, are able to access other government founds like asking for loan or
+        gain a scholarship for thier studies.
+      </p>
+    </div> 
   </div>
-</div>
-{% endblock%}
+  <footer style='background-color:black;color:white;text-align:center;margin-bottom: -80px'>
+    <span style='margin:10px;'><p>Copyright(c)2019</p> <h5>Rwanda</h5></span>
+  </footer>
+  {% endblock%}
+</body>

@@ -1,25 +1,29 @@
-<div class="navbar navbar-inverse" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/"> Pitches </a>
-            </div>
-            <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-right">
-                {% if current_user.is_authenticated %}
-                <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-                <li><a href="{{url_for('main.new_pitch',id=current_user.id)}}">Pitching</a></li>
-                <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
-                {% else %}
-                <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
-                {%endif%}
-              </ul>
-            </div>
 
-        </div>
+<body style="background-image:url('https://media.istockphoto.com/vectors/water-bubbles-vector-illustration-abstract-bubbles-white-transparent-vector-id947316044?k=6&m=947316044&s=612x612&w=0&h=VHzgeLJ_QTHO4_6g_W5eLnsBzwr7wSm3oEOaLhYOYKA=')">
+
+  <div class="navbar navbar-inverse" role="navigation" style="background-color:maroon;height: 150px">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><img src="../static/photos/Screenshot from 2019-03-06 17-03-24-1-1.png" height="100px" width="150px"></a>
+        <a class="navbar-brand" href="/" style="margin-top:80px;margin-left:150px;color: white">About</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          {% if current_user.is_authenticated %}
+          <li><a href="{{url_for('main.profile',uname=current_user.username)}}"style="margin-top:80px;color: white">Profile</a></li>
+          <li><a href="{{url_for('main.new_pitch',id=current_user.id)}}" style="margin-top:80px;color: white">Pitching</a></li>
+          <li><a href="{{url_for('auth.logout')}}" style="margin-top:80px;color: white">Sign out</a></li>
+          {% else %}
+          <li><a href="{{url_for('auth.login')}}" style="margin-top:80px;color: white">Sign in</a></li>
+          {%endif%}
+        </ul>
+      </div>
     </div>
+  </div>
+</body>
